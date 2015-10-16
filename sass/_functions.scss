@@ -1,0 +1,4 @@
+@function _parcent($wanted, $parent) {
+	//@return (($wanted / $parent) * 100)+ '%';
+  	@return (($wanted / $parent) * 100)*1%;
+}

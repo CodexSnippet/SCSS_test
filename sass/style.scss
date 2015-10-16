@@ -1,16 +1,16 @@
 @import "screen";
 @import "compass";
+@import "compass/css3";
+@import "functions";
 $frame_w : 980px;
+$margin_m : 0 auto;
 $txt_col: #fff;
 $tit_size: 44px;
 
 /*************
 	common
  *************/
-.container {
-	width: $frame_w;
-	margin: 0 auto;
-}
+
 .cFix:after {
   display: block;
   content: "";
@@ -18,7 +18,7 @@ $tit_size: 44px;
   height: 0;
   font-size: 0;
   visibility: hidden; }
-
+@mixin middle_box( $c_width, $m_margin) { width: $c_width;  margin: $m_margin; }
 @mixin border-radius($radius) {
   	-webkit-border-radius: $radius;
     -moz-border-radius: $radius;
@@ -34,13 +34,17 @@ $tit_size: 44px;
 $d_gray: gray;
 $darken_col: darken( $d_gray, 20% );
 $lighten_col: lighten( $d_gray, 20% );
+
+/***************
+	header
+****************/
 header {
 	width: 100%;
 	padding: 20px 0 20px 0;
 	background-image: image-url("bg_head.jpg");
 }
 .head_in {
-	@extend .container;
+	@include middle_box($frame_w, $margin_m);
 	@extend .cFix;
 }
 .logo{
@@ -69,8 +73,40 @@ header {
 	&:hover{
 		background: $darken_col;
 		cursor: pointer;
+		color: $lighten_col;
 	}
 }
 .button_group {
 	float: right;
  }
+
+/*********************
+content
+**********************/
+.padd {
+	padding: 10px 0;
+}
+.content_in {
+	@include middle_box($frame_w, $margin_m);
+	@extend .padd;
+}
+[class*="sec"] {
+	width: 100%;
+}
+.con_left {
+	ul
+	li {
+		border-bottom: 1px solid $darken_col;
+		@extend .padd;
+	}
+	width: _parcent(300,980);
+	float: left;
+}
+.con_right {
+	width: _parcent(660,980);
+	float: right;
+	@extend .padd;
+	p {
+		margin-bottom: 20px;
+	}
+}
