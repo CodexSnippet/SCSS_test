@@ -2,22 +2,38 @@
 @import "compass";
 @import "compass/css3";
 @import "functions";
-$frame_w : 980px;
+$frame_w : 960px;
 $margin_m : 0 auto;
-$txt_col: #fff;
+$txt_col: #cbc750;
 $tit_size: 44px;
-
+$d_gray: gray;
+$darken_col: darken( $d_gray, 20% );
+$lighten_col: lighten( $d_gray, 20% );
+$active_col: #fcf88e;
+$border_col: #0a1d24;
 /*************
 	common
  *************/
 
 .cFix:after {
-  display: block;
-  content: "";
-  clear: both;
-  height: 0;
-  font-size: 0;
-  visibility: hidden; }
+  	display: block;
+  	content: "";
+  	clear: both;
+  	height: 0;
+  	font-size: 0;
+  	visibility: hidden; 
+}
+
+.hf_bg{
+	width: 100%;
+	padding: 20px 0 20px 0;
+	background-image: image-url("bg_head.jpg");
+}
+.txt_style {
+	margin-bottom: 20px;
+	text-align: justify;
+}
+@mixin box_bg( $box_width) { width: $box_width; border: 1px solid $border_col; background: rgba(0,0,0,.2);}
 @mixin middle_box( $c_width, $m_margin) { width: $c_width;  margin: $m_margin; }
 @mixin border-radius($radius) {
   	-webkit-border-radius: $radius;
@@ -31,17 +47,25 @@ $tit_size: 44px;
     -o-transition: all $tran ease;
     transition: all $tran ease;
 }
-$d_gray: gray;
-$darken_col: darken( $d_gray, 20% );
-$lighten_col: lighten( $d_gray, 20% );
+@mixin left_box ($l_width) {
+	width: $l_width;
+	float: left;
+	padding: 10px;
+}
+@mixin right_box ($r_width) {
+	width: $r_width;
+	float: right;
+	padding: 10px;
+}
 
+body {
+	background: #173844;
+}
 /***************
 	header
 ****************/
 header {
-	width: 100%;
-	padding: 20px 0 20px 0;
-	background-image: image-url("bg_head.jpg");
+	@extend .hf_bg;
 }
 .head_in {
 	@include middle_box($frame_w, $margin_m);
@@ -55,11 +79,10 @@ header {
 			color: $txt_col;
 			@include btn_tran(.5s);			
 	  		&:hover {
-	        	color: $darken_col;
+	        	color: $active_col;
 	    	}
 		}	
-	}
-	
+	}	
 }
 
 [class*="btn"] {
@@ -81,32 +104,138 @@ header {
  }
 
 /*********************
-content
+	content
 **********************/
 .padd {
 	padding: 10px 0;
 }
 .content_in {
-	@include middle_box($frame_w, $margin_m);
-	@extend .padd;
+	@include middle_box(920px, $margin_m);
+	margin-top: 30px;
+	@extend .cFix;
 }
 [class*="sec"] {
 	width: 100%;
 }
-.con_left {
-	ul
-	li {
-		border-bottom: 1px solid $darken_col;
-		@extend .padd;
-	}
-	width: _parcent(300,980);
+
+.content_left {
 	float: left;
-}
-.con_right {
-	width: _parcent(660,980);
-	float: right;
-	@extend .padd;
-	p {
-		margin-bottom: 20px;
+	width: 188px;
+	padding: 10px;
+	border: 1px solid $border_col; 
+	background: rgba(0,0,0,.2);
+	.left_box{
+		padding-bottom: 10px;
+		margin-bottom: 15px;
+		h2 {
+			font-size: 16px;
+			color: $txt_col;
+			padding: 0 0 5px 0;
+			margin: 0 0 10px 0;
+			border-bottom: 1px dotted $txt_col;
+			line-height: 15px;
+		}
+		ul {
+			padding: 0;
+			margin: 0;
+			li{
+				padding: 0 0 5px 10px;	
+				a{
+					color: #969547;
+				}
+				a:hover {
+					color: $active_col;
+				}
+				.current{
+					color: $active_col;
+				}
+			}
+		}
 	}
+	.last_box {
+		padding-bottom: 0px!important;
+		margin-bottom: 0px!important;
+	}
+	.advertisement {
+		width: 100%;
+		height: 50px;
+		background: rgba(255,255,255,.2);
+	}
+}
+
+.content_right {
+	float: right;
+	width: 680px;
+	.item_box {
+		float: left;
+		width: 303px;
+		padding: 10px;
+		border: 1px solid $border_col;
+		margin-bottom: 30px;
+		.img_box {
+			width: 100px;
+			height: 150px;
+			float: left;
+			margin-right: 20px;
+			background: rgba(0,0,0,.2);
+		}
+		h3 {
+			padding: 10px;
+			margin: 0 0 20px 0;
+			font-size: 15px;
+			color: $txt_col;
+			background: rgba(0,0,0,.2);
+		}
+		.item_info {
+			float: left;
+			width: 180px;
+			p {
+				@extend .txt_style;
+			}			
+			.price {
+				display: block;
+				padding: 0;
+				margin: 0 0 20px 0;
+				font-size: 18px;
+				color: #85391f;
+			}
+			%button {
+				text-align: center;
+				display: block;
+				width: 100px;
+				padding: 4px 0 5px 0;
+				margin-bottom: 10px; 
+				border-radius: 20px;
+				color: #FFFFFF;
+			}
+			.buy_now_button a{
+				@extend %button;
+				background: #8a7315;
+				&:hover {
+					color: #171717;
+					@include btn_tran(.5s);	
+				}
+			}
+
+			.detail_button a{
+				@extend %button; 
+				background: #171717;
+				&:hover {
+					color: #8a7315;
+					@include btn_tran(.5s);	
+				}
+			}
+		}
+	}
+	.item_right {
+		margin-left: 30px;
+	}	
+}
+footer {
+	@extend .hf_bg;
+}
+.footer_in {
+	@include middle_box($frame_w, $margin_m);
+	color: $txt_col;
+	text-align: center;
 }
